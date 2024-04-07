@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Home page</title> 
+    </head>
+    <body>
+      <h1>
+        hi :3
+      </h1>
+     <script>
+      var PI = 3.1415926;
+      var QUARTER_PI = PI/4;
+      var canvas = document.createElement('canvas');
+      canvas.width = 1000;
+      canvas.height = 1000;
+      canvas.style.border = "1px solid black"
+      canvas.style.backgroundColor = "#E4F2FF"
+
+      var body = document.getElementsByTagName('body')[0];
+      body.appendChild(canvas);
+
+      var ctx = canvas.getContext('2d');
+
+      function drawBall(x, y, rX, rY, rot) {
+        ctx.beginPath();
+        ctx.ellipse(x, y, rX, rY, rot, 0, 2*PI);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.ellipse(x, y, rX, rY, rot, 0, 2*PI);
+        ctx.stroke();
+      }
+
+      function degrees2Radians(degrees) {
+        return degrees*(PI/180);
+      }
+
+      var leftArmRot = 115;
+      var deltaLeftArmRot = 3;
+
+      function draw() {
+       // ctx.background('#E4F2FF');
+        ctx.strokeStyle='#92C0EE';
+        ctx.fillStyle='#FFFFFF';
+        ctx.lineWidth=5;
+        // left arm
+        drawBall(100, 320, 20, 50, degrees2Radians(leftArmRot));
+        // right arm
+        drawBall(285, 365, 20, 50, degrees2Radians(145));
+        // body
+        drawBall(200, 375, 75, 90, 0);
+        // head
+        drawBall(200, 175, 150, 150, 0);
+        // left eye
+        drawBall(100, 175, 40, 40, 0);
+        // right eye
+        drawBall(300, 175, 40, 40, 0);
+        ctx.beginPath();
+        ctx.arc(200, 250, 20, degrees2Radians(0), degrees2Radians(180));
+        ctx.stroke();
+        
+       // ctx.font = "50px Arial";
+       // ctx.fillText("U",182,350);
+
+      }
+
+      function tick() {
+        if (leftArmRot > 145 || leftArmRot < 115) {
+          deltaLeftArmRot *= -1;
+        }
+        leftArmRot += deltaLeftArmRot;
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        draw();
+        setTimeout(tick, 16);
+      }
+       
+      tick();
+
+     </script>
+    </body>
+</html>
